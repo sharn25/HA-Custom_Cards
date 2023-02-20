@@ -26,7 +26,7 @@ This Repository gives sample code to make custom cards for HomeAssistant. You wi
 
 ### Switch card
 
-* Simple on/off indication icon for switches.
+* Simple on/off indication icon switches.
 
 ![Switch-Card](/assets/switch_card.png)
 
