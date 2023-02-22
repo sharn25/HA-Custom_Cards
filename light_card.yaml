@@ -22,7 +22,7 @@ custom_fields:
   icon_cells: |
     [[[
       return `<ha-icon
-        icon="mdi:ceiling-light"
+        icon="ssb:ceiling-light"
         style="width: 25px; height: 25px; color: auto;">
        </ha-icon> 
        `
@@ -47,7 +47,7 @@ custom_fields:
         track:
           - background: |
               [[[
-                if (entity.state == "off") return 'var(--card-background-color)';
+                if (entity.state == "off") return 'var(--primary-background-color)';
                 else return 'linear-gradient(to right, #ffee96 , white)';
               ]]]
         progress:
@@ -73,6 +73,8 @@ custom_fields:
           - width: 15px
           - margin-top: 2.5px
           - border-radius: 20px
+hold_action:
+  action: more-info
 state:
   - value: 'on'
     styles:
