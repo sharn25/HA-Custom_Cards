@@ -3,6 +3,10 @@ entity: light.bedroom_light
 name: Bedroom Room
 show_icon: false
 styles:
+  card:
+    - border-radius: 25px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
   grid:
     - grid-template-areas: '"icon_cells" "n" "slider"'
     - grid-template-columns: 1fr
@@ -10,7 +14,7 @@ styles:
   custom_fields:
     icon_cells:
       - justify-self: start
-      - margin-top: 5%
+      - margin-top: 12px
       - margin-left: 13px
   name:
     - font-size: 90%
@@ -47,8 +51,8 @@ custom_fields:
         track:
           - background: |
               [[[
-                if (entity.state == "off") return 'var(--primary-background-color)';
-                else return 'linear-gradient(to right, #ffee96 , white)';
+                if (entity.state == "on") return 'linear-gradient(to right, #ffee96 , white)';
+                else return 'var(--primary-background-color)';
               ]]]
         progress:
           - height: 100%
@@ -60,14 +64,14 @@ custom_fields:
           - height: 100%
           - background: |
               [[[
-                if (entity.state == "off") return 'var(--primary-text-color)';
-                else return 'black';
+                if (entity.state == "on") return 'black';
+                else return 'var(--primary-text-color)';
               ]]]
           - position: absolute
           - right: |
               [[[
-                if (entity.state == "off") return '-17px' ;
-                else return '-5px';
+                if (entity.state == "on") return '-5px' ;
+                else return '-17px';
               ]]]
           - height: 15px
           - width: 15px

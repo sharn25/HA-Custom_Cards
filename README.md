@@ -1,6 +1,6 @@
 # Custom Cards
 
-This Repository gives sample code to make custom cards for HomeAssistant. You will be requiring Custom: Button Card, Mini-Graph Card, my-slider-v2 and Card-mod to be pre-installed to make it work. 
+This Repository gives sample code to make custom cards for HomeAssistant. You will be requiring Custom: Button Card, Mini-Graph Card, my-slider-v2, apex-charts, stack-in-card and Card-mod to be pre-installed to make it work. 
 
 [Card-Mod](https://github.com/thomasloven/lovelace-card-mod)
 
@@ -10,25 +10,98 @@ This Repository gives sample code to make custom cards for HomeAssistant. You wi
 
 [My-Slider-v2](https://github.com/AnthonMS/my-cards)
 
+[Stack-in-Card](https://github.com/custom-cards/stack-in-card)
+
+[ApexCharts](https://github.com/RomRider/apexcharts-card#main-show-options)
+
+### Custom Icons
+
+* Google Material Icons.
+* Some from Flaticons.
+
+#### Install
+
+```yaml
+  resources:
+    - url: /local/custom_icon.js
+      type: module
+  ```
+
+### Person Card
+
+* Information on Person mobile battery and storage
+* Indication for Away from Home Zone and network connection at top right corner.
+
+![Person Card](/assets/person_card.jpeg)
+
 ### Room Card
 
 * Sensor info under Room name.
 * Indication for Active device at top right corner.
 
-![Room Cards](/assets/room_card.png)
+![Room Cards](/assets/room_card.jpeg)
 
 ### Light Card
 
 * Card Color change on light state change.
 * Slider for changing brightness(default). Can be changed to use for temperature, color. 
 
-![Light Card](/assets/light_card.png)
+![Light Card](/assets/light_card.jpeg)
 
-### Switch card
+### Media Player Card
 
-* Simple on/off indication icon switches.
+* Minimal view card
 
-![Switch-Card](/assets/switch_card.png)
+![Media Player Card](/assets/media_card.png)
 
+### Switch Card
 
+* Shows state info.
+* Toggle button to indicate on/off state.
 
+![Switch-Card](/assets/switch_card.jpeg)
+
+### Device Card
+
+* Show device status battery, storagea other sensors.
+* Indication and info  of connection type and battery status.
+
+![Device Card](/assets/device_card.jpeg)
+
+### Usage Card
+
+* Weekly graph of usage
+
+![Usage Card](/assets/usage_card.jpeg)
+
+### Utilization Card
+
+* Shows utilization of resources with progress bar.
+
+![Utilization Card](/assets/utilization_card.jpeg)
+
+### Storage Card
+
+* Show Storage with prgress bar.
+
+![Storage Card](/assets/storage_card.jpeg)
+
+### Information Card
+
+#### Style 1
+
+* Shows sensor state information with graph.
+
+![Style 1](/assets/information_card_style_1.jpeg)
+
+#### Style 2
+
+* Shows sensor state information.
+
+![Style 2](/assets/information_card_style_2.jpeg)
+
+#### Style 3
+
+* Shows sensor state information.
+
+![Style 3](/assets/information_card_style_3.jpeg)

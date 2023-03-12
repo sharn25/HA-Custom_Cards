@@ -1,0 +1,225 @@
+type: custom:button-card
+entity: person.person_name
+show_icon: false
+name: Apple Iphone
+styles:
+  card:
+    - border-radius: 20px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
+  custom_fields:
+    icon_cells:
+      - justify-self: start
+      - margin-top: 12px
+      - margin-left: 15px
+    devices:
+      - justify-self: end
+      - margin-right: 8px
+      - margin-top: '-17px'
+    temp:
+      - justify-self: start
+      - margin-left: 12px
+      - margin-top: '-4px'
+      - padding-bottom: 5%
+    sec_title:
+      - justify-self: start
+      - font-size: 10px
+      - margin-left: 12px
+      - margin-top: 2px
+      - filter: opacity(40%)
+  icon:
+    - width: 25px
+    - color: auto
+  name:
+    - font-size: 90%
+    - font-weight: bold
+    - justify-self: start
+    - margin-top: 6px
+    - margin-left: 12px
+  grid:
+    - grid-template-areas: '"icon_cells devices" "n n" "sec_title sec_title" "temp temp"'
+    - grid-template-columns: 1fr min-content
+    - grid-template-rows: 1fr min-content min-content
+custom_fields:
+  sec_title: |
+    [[[
+      return `<span>Owner Name</span> 
+       `
+    ]]]
+  icon_cells: |
+    [[[
+      return `<ha-icon
+        icon="ssb:iphone-mobile"
+        style="width: 25px; height: 25px; color: auto;">
+       </ha-icon> 
+       `
+    ]]]
+  devices: |
+    [[[
+        var codeBlk = ""; 
+        if (states['person.person_name'].state != 'home') 
+          codeBlk = codeBlk + " " + `<ha-icon
+          icon="ssb:away"
+          style="width: 13px; height: 13px; color: #CF0A0A;">
+          </ha-icon>
+         `;
+        if (states['sensor.iphone_connection_type'].state != 'Wi-Fi') 
+          codeBlk = codeBlk + " " + `<ha-icon
+          icon="ssb:signal"
+          style="width: 13px; height: 13px; color: #BD4291;">
+          </ha-icon>
+         `;
+        else
+          codeBlk = codeBlk + " " + `<ha-icon
+          icon="ssb:wifi"
+          style="width: 13px; height: 13px; color: #BD4291;">
+          </ha-icon>
+         `;
+
+        var icon_battery = "ssb:battery-v2-slash";
+        var battery_level = states['sensor.iphone_battery_level'].state;
+        var charge_state = states['sensor.iphone_battery_state'].state;
+        
+        if (charge_state != 'Not Charging') icon_battery = "ssb:battery-v2-charging";
+        else if(battery_level <= 20 ) icon_battery = "ssb:battery-v2-low"; 
+        else if(battery_level > 20 && battery_level < 40) icon_battery = "ssb:battery-v2-1";
+        else if(battery_level > 40 && battery_level < 60) icon_battery = "ssb:battery-v2-2";
+        else if(battery_level > 60 && battery_level < 80) icon_battery = "ssb:battery-v2-3";
+        else if(battery_level => 80) icon_battery = "ssb:battery-v2-full";
+
+          codeBlk = codeBlk + " " + `<ha-icon
+        icon=${icon_battery}
+        style="width: 14px; height: 14px; color: auto;">
+        </ha-icon><span style="font-size:65%; font-weight: normal; text-align: center;">
+        ${battery_level}%</span>
+       `;
+        return codeBlk;
+      
+    ]]]
+  temp:
+    card:
+      type: custom:button-card
+      styles:
+        card:
+          - border-style: none
+          - background-color: transparent
+          - padding-right: 10px
+          - margin-bottom: '-10px'
+        grid:
+          - grid-template-areas: '"storage steps distance"'
+          - grid-template-columns: min-content min-content
+          - grid-template-rows: 1fr
+        custom_fields:
+          icon:
+            - margin-top: 1px
+      custom_fields:
+        storage:
+          card:
+            type: custom:button-card
+            styles:
+              card:
+                - border-radius: 7px
+                - border-style: none
+                - background-color: var(--secondary-background-color)
+                - margin-top: 10px
+                - padding-left: 10px
+                - padding-right: 10px
+                - padding-bottom: 5px
+              grid:
+                - grid-template-areas: '"icon value"'
+                - grid-template-columns: min-content min-content
+                - grid-template-rows: 1fr
+              custom_fields:
+                icon:
+                  - margin-top: 0px
+                value:
+                  - margin-top: '-1px'
+            custom_fields:
+              value: |
+                [[[
+                    return `
+                    <span style="font-size:60%; font-weight: normal; text-align: center;">
+                    ${states['sensor.iphone_storage'].state}%</span>`
+
+                ]]]
+              icon: |
+                [[[
+                    return `<ha-icon
+                    icon="ssb:storage"
+                    style="width: 12px; height: 12px; color: auto;">
+                    </ha-icon>`
+                ]]]
+        steps:
+          card:
+            type: custom:button-card
+            styles:
+              card:
+                - border-radius: 7px
+                - border-style: none
+                - background-color: var(--secondary-background-color)
+                - margin-top: 10px
+                - margin-left: 3px
+                - padding-left: 10px
+                - padding-right: 10px
+                - padding-bottom: 5px
+              grid:
+                - grid-template-areas: '"icon value"'
+                - grid-template-columns: min-content min-content min-content
+                - grid-template-rows: 1fr
+              custom_fields:
+                icon:
+                  - margin-top: 1px
+                value:
+                  - margin-top: '-0px'
+            custom_fields:
+              value: |
+                [[[
+                    return `
+                    <span style="font-size:60%; font-weight: normal; text-align: center;">
+                    ${states['sensor.iphone_steps'].state}</span>`
+
+                ]]]
+              icon: |
+                [[[
+                    return `<ha-icon
+                    icon="ssb:steps"
+                    style="width: 12px; height: 12px; color: auto;">
+                    </ha-icon>`
+                ]]]
+        distance:
+          card:
+            type: custom:button-card
+            styles:
+              card:
+                - border-radius: 7px
+                - border-style: none
+                - background-color: var(--secondary-background-color)
+                - margin-top: 10px
+                - margin-left: 6px
+                - padding-left: 10px
+                - padding-right: 10px
+                - padding-bottom: 5px
+              grid:
+                - grid-template-areas: '"icon value"'
+                - grid-template-columns: min-content min-content
+                - grid-template-rows: 1fr
+              custom_fields:
+                icon:
+                  - margin-top: 0px
+                value:
+                  - margin-top: '-2.5px'
+            custom_fields:
+              value: |
+                [[[
+                    return `
+                    <span style="font-size:60%; font-weight: normal; text-align: center;">
+                    ${states['sensor.iphone_distance'].state}</span>`
+
+                ]]]
+              icon: |
+                [[[
+                    return `<ha-icon
+                    icon="ssb:distant"
+                    style="width: 12px; height: 12px; color: auto;">
+                    </ha-icon>`
+                ]]]

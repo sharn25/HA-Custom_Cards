@@ -1,0 +1,98 @@
+type: custom:button-card
+entity: sensor.processor_use
+show_icon: false
+name: CPU Usage
+styles:
+  card:
+    - border-radius: 20px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
+  name:
+    - justify-self: center
+    - font-size: 90%
+    - font-weight: bold
+    - margin-top: 5px
+    - margin-left: 0px
+  grid:
+    - grid-template-areas: '"graph" "icon_cells" "n" "value"'
+    - grid-template-columns: 1fr
+    - grid-template-rows: min-content min-content
+  custom_fields:
+    graph:
+      - justify-self: start
+      - align-self: start
+      - margin-top: 10px
+      - margin-left: '-0%'
+    icon_cells:
+      - justify-self: center
+      - margin-top: '-76px'
+      - margin-left: 0%
+    value:
+      - justify-self: center
+      - align-self: start
+      - font-size: 80%
+      - margin-left: 0px
+      - margin-top: 5px
+      - margin-bottom: 5px
+      - filter: opacity(70%)
+custom_fields:
+  icon_cells: |
+    [[[
+      return `<ha-icon
+        icon="ssb:cpu"
+        style="width: 25px; height: 25px; color: auto;">
+        </ha-icon> 
+       `
+    ]]]
+  value: |
+    [[[
+      return `<span>${states['sensor.processor_use'].state} %</span> 
+       `
+    ]]]
+  graph:
+    card:
+      type: custom:apexcharts-card
+      experimental:
+        color_threshold: true
+        brush: true
+      chart_type: radialBar
+      series:
+        - entity: sensor.processor_use
+          color: '#3E54AC'
+          max: 100
+          show:
+            legend_value: false
+      apex_config:
+        plotOptions:
+          radialBar:
+            offsetY: 0
+            startAngle: 0
+            endAngle: 360
+            hollow:
+              size: 85%
+              position: left
+              dropShadow:
+                enabled: true
+                top: 10
+                left: 10
+                blur: 4
+                opacity: 0.24
+            dataLabels:
+              name:
+                show: false
+              value:
+                show: false
+            track:
+              background: '#ECF2FF'
+              strokeWidth: 79%
+              margin: 0
+        legend:
+          show: false
+        chart:
+          height: 100
+      card_mod:
+        style: |
+          ha-card {
+            border-style: none;
+            background-color: transparent; 
+          }

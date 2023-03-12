@@ -1,0 +1,49 @@
+type: custom:button-card
+entity: sensor.voltage_10a_ckt
+show_icon: false
+name: Voltage
+styles:
+  card:
+    - border-radius: 20px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
+  grid:
+    - grid-template-areas: '"icon_cells" "n" "value"'
+    - grid-template-columns: 1fr
+    - grid-template-rows: 1fr min-content
+  name:
+    - justify-self: start
+    - align-self: start
+    - margin-top: 10px
+    - margin-left: 20px
+    - font-size: 65%
+    - filter: opacity(60%)
+  custom_fields:
+    value:
+      - justify-self: start
+      - align-self: start
+      - margin-top: 0px
+      - margin-left: 20px
+      - font-size: 15px
+      - font-weight: bold
+      - margin-bottom: 5px
+    icon_cells:
+      - justify-self: start
+      - align-self: start
+      - margin-top: 5px
+      - margin-left: 20px
+custom_fields:
+  icon_cells: |
+    [[[
+      return `<ha-icon
+        icon="mdi:sine-wave"
+        style="width: 13px; height: 13px; color: auto;">
+       </ha-icon> 
+       `
+    ]]]
+  value: |
+    [[[
+      var value = states['sensor.voltage_10a_ckt'].state;
+      return `<span>${value}</span> <span style="font-size: 10px">V</span>
+       `
+    ]]]

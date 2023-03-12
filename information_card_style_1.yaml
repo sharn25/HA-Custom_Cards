@@ -1,0 +1,86 @@
+type: custom:stack-in-card
+cards:
+  - type: custom:button-card
+    entity: sensor.server_cpu_temperature
+    show_icon: false
+    name: CPU Temp.
+    styles:
+      card:
+        - border-radius: 20px
+        - border-style: none
+      grid:
+        - grid-template-areas: '"icon_cells icon_cells" "n n" "value value"'
+        - grid-template-columns: min-content 1fr
+        - grid-template-rows: min-content min-content
+      name:
+        - justify-self: start
+        - align-self: start
+        - font-size: 90%
+        - font-weight: bold
+        - margin-left: 15px
+        - margin-top: 5px
+      custom_fields:
+        icon_cells:
+          - justify-self: start
+          - margin-top: 12px
+          - margin-left: 15px
+        value:
+          - justify-self: start
+          - align-self: start
+          - font-size: 60%
+          - font-weight: normal
+          - margin-right: 17px
+          - margin-left: 16px
+          - margin-top: 4px
+          - filter: opacity(70%)
+    custom_fields:
+      icon_cells: |
+        [[[
+          var temp = states['sensor.server_cpu_temperature'].state;
+          if( temp > 40)
+          return `<ha-icon
+            icon="ssb:thermostat"
+            style="width: 20px; height: 20px; color: #EB1D36;">
+            </ha-icon> 
+           `;
+          else return `<ha-icon
+            icon="ssb:thermostat"
+            style="width: 20px; height: 20px; color: auto;">
+            </ha-icon> 
+           `;
+        ]]]
+      value: |
+        [[[
+          var value = states['sensor.server_cpu_temperature'].state;
+          value = Math.round(value * 100) / 100
+          return `<span> 
+           ${value}°C</span>
+           `
+         ]]]
+  - type: custom:mini-graph-card
+    entities:
+      - sensor.server_cpu_temperature
+    color_thresholds:
+      - value: 39
+        color: '#14C38E'
+      - value: 40
+        color: '#14C38E'
+    line_width: 0
+    show:
+      icon: false
+      name: false
+      state: false
+    card_mod:
+      style: |
+        ha-card {
+          border-style: none;
+          margin-top: -35px;
+          line_color: red;
+        }
+card_mod:
+  style: |
+    ha-card {
+      border-radius: 20px;
+      border-style: none;
+      box-shadow: 0px 0px 10px -9px black;
+    }

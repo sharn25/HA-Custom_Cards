@@ -1,0 +1,91 @@
+type: custom:button-card
+entity: switch.server_power
+name: Server Switch
+show_icon: false
+styles:
+  card:
+    - border-radius: 25px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
+  grid:
+    - grid-template-areas: '"icon_cells" "n" "button"'
+    - grid-template-columns: 1fr
+    - grid-template-rows: 1fr min-content min-content
+  custom_fields:
+    icon_cells:
+      - justify-self: start
+      - margin-top: 12px
+      - margin-left: 15px
+  name:
+    - font-size: 90%
+    - font-weight: bold
+    - justify-self: start
+    - margin-top: 6px
+    - margin-left: 15px
+custom_fields:
+  icon_cells: |
+    [[[
+      return `<ha-icon
+        icon="ssb:server"
+        style="width: 25px; height: 25px; color: auto;">
+       </ha-icon> 
+       `
+    ]]]
+  button:
+    card:
+      type: custom:button-card
+      entity: switch.server_power
+      show_icon: false
+      show_name: false
+      styles:
+        card:
+          - border-style: none
+          - margin-top: '-4%'
+          - margin-bottom: '-5%'
+          - background-color: transparent
+        grid:
+          - grid-template-areas: '"state icon_cells"'
+          - grid-template-columns: min-content 1fr
+          - grid-template-rows: min-content
+        custom_fields:
+          state:
+            - justify-self: start
+            - align-self: middle
+            - font-size: 12px
+            - filter: opacity(50%)
+            - margin-left: 15px
+            - margin-top: 1.6px
+          icon_cells:
+            - justify-self: end
+            - align-self: start
+            - margin-right: 15px
+            - width: 45px
+      custom_fields:
+        icon_cells: |
+          [[[
+           var state = states['switch.server_power'].state;
+           if(state == "on")
+            return `<ha-icon
+            icon="mdi:toggle-switch"
+            style="color: #59CE8F;">
+            </ha-icon>
+            `;
+           else 
+            return `<ha-icon
+            icon="mdi:toggle-switch-off"
+            style="color: auto;">
+            </ha-icon>
+            `;
+          ]]]
+        state: |
+          [[[
+            var state = states['switch.server_power'].state
+           if(state == "on")
+            return `<span>On</san>
+            `;
+           else 
+            return `<span>Off</san>
+            `;
+          ]]]
+hold_action:
+  action: more-info

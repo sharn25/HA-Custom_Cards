@@ -1,0 +1,177 @@
+type: custom:button-card
+entity: media_player.living_room_speaker
+show_icon: false
+show_name: false
+tap_action:
+  action: call-service
+  service: media_player.media_play_pause
+  service_data:
+    entity_id: '[[[ return entity.entity_id ]]]'
+double_tap_action:
+  action: call-service
+  service: media_player.media_next_track
+  service_data:
+    entity_id: '[[[ return entity.entity_id ]]]'
+hold_action:
+  action: more-info
+styles:
+  card:
+    - border-radius: 20px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
+    - height: |
+        [[[
+          if (entity.state == "playing" || entity.state == "paused") return '150px' ;
+          else return '73px';
+        ]]]
+  grid:
+    - grid-template-areas: >-
+        "icon_cells title title" "icon_cells alubm alubm" "volume_dec
+        volume_slider volume_inc"
+    - grid-template-columns: min-content 1fr min-content
+    - grid-template-rows: min-content min-content min-content
+  custom_fields:
+    icon_cells:
+      - justify-self: start
+      - align-self: start
+      - margin-left: 20px
+    title:
+      - justify-self: start
+      - align-self: end
+      - font-size: 15px
+      - font-weight: bold
+      - margin-top: |
+          [[[
+            if (entity.state == "playing" || entity.state == "paused") return '-5px' ;
+            else return '13px';
+          ]]]
+      - margin-left: 20px
+    alubm:
+      - justify-self: start
+      - align-self: start
+      - color: var(--secondary-text-color)
+      - font-size: 12px
+      - margin-left: 20px
+      - margin-top: 3px
+    volume_dec:
+      - margin-left: 5px
+    volume_inc:
+      - margin-right: 5px
+    volume_slider:
+      - margin-left: '-35px'
+custom_fields:
+  icon_cells: |
+    [[[
+      if (states['media_player.living_room_speaker'].state == 'off')
+      return `<ha-icon
+        icon="ssb:google-mini"
+        style="width: 40px; height: 40px; color: auto;">
+        </ha-icon>
+       `;
+      else if (states['media_player.living_room_speaker'].state == 'idle')
+        return `<ha-icon
+        icon="ssb:google-mini"
+        style="width: 40px; height: 40px; color: '#541690';">
+        </ha-icon>
+       `;
+      else
+        return `
+         <img src=${entity.attributes.entity_picture_local}
+         height="60"
+         alt="GeeksforGeeks logo" 
+         style="border:4px solid var(--primary-text-color); border-radius:10px;" >
+       `;
+    ]]]
+  title: |
+    [[[
+      if (states['media_player.living_room_speaker'].state == 'off')
+      return `<span> 
+        ${entity.attributes.friendly_name}</span>
+       `;
+      else if (states['media_player.living_room_speaker'].state == 'idle')
+        return `<span> 
+        ${entity.attributes.friendly_name}</span>
+       `;
+      else
+        return `<span> 
+        ${entity.attributes.media_title}</span>
+       `;
+    ]]]
+  alubm: |
+    [[[
+      if (states['media_player.living_room_speaker'].state == 'playing' || states['media_player.living_room_speaker'].state == 'paused' ||
+      states['media_player.living_room_speaker'].state == 'buffering')
+      return `<span> 
+        ${entity.attributes.media_artist}</span>`
+      
+    ]]]
+  volume_dec:
+    card:
+      type: custom:button-card
+      entity: media_player.living_room_speaker
+      show_name: false
+      icon: ssb:volume-down
+      styles:
+        card:
+          - border-style: none
+          - width: 50px
+          - height: 50px
+      tap_action:
+        action: call-service
+        service: media_player.volume_down
+        service_data:
+          entity_id: '[[[ return entity.entity_id ]]]'
+  volume_inc:
+    card:
+      type: custom:button-card
+      entity: media_player.living_room_speaker
+      show_name: false
+      icon: ssb:volume-up
+      styles:
+        card:
+          - border-style: none
+          - width: 50px
+          - height: 50px
+      tap_action:
+        action: call-service
+        service: media_player.volume_up
+        service_data:
+          entity_id: '[[[ return entity.entity_id ]]]'
+  volume_slider:
+    card:
+      type: custom:my-slider-v2
+      entity: '[[[ return entity.entity_id ]]]'
+      styles:
+        card:
+          - height: 2px
+          - width: 100%
+          - margin-left: 0px
+          - margin-top: 0px
+          - margin-bottom: 0px
+          - border-width: 0px
+        container:
+          - border-radius: 2px
+          - margin-left: 0px
+          - width: 100%
+        track:
+          - background: |
+              [[[
+                return 'var(--primary-background-color)';
+              ]]]
+        progress:
+          - height: 100%
+          - background: var(--primary-text-color)
+          - position: absolute
+          - width: 0.00%
+          - border-radius: 20px
+        thumb:
+          - background: |
+              [[[
+                return 'var(--primary-text-color)';
+              ]]]
+          - position: absolute
+          - right: 1px
+          - height: 5px
+          - width: 5px
+          - margin-top: 0px
+          - border-radius: 20px

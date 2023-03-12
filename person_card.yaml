@@ -1,0 +1,99 @@
+type: custom:button-card
+entity: person.person_name
+show_icon: false
+name: Person Name
+styles:
+  card:
+    - border-radius: 20px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
+  custom_fields:
+    icon_cells:
+      - justify-self: start
+      - margin-top: 12px
+      - margin-left: 15px
+    devices:
+      - justify-self: end
+      - margin-right: 8px
+      - margin-top: '-17px'
+    temp:
+      - filter: opacity(80%)
+      - justify-self: start
+      - margin-left: 10px
+      - margin-top: '-2px'
+      - padding-bottom: 5%
+    graph:
+      - padding-top: 0%
+      - width: 100%
+      - height: 0%
+      - margin-bottom: '-1%'
+  icon:
+    - width: 25px
+    - color: auto
+  name:
+    - font-size: 90%
+    - font-weight: bold
+    - justify-self: start
+    - margin-top: 6px
+    - margin-left: 12px
+  grid:
+    - grid-template-areas: '"icon_cells devices" "n n" "temp temp" '
+    - grid-template-columns: 1fr min-content
+    - grid-template-rows: 1fr min-content min-content
+custom_fields:
+  icon_cells: |
+    [[[
+      return `<ha-icon
+        icon="ssb:person-male"
+        style="width: 25px; height: 25px; color: auto;">
+       </ha-icon> 
+       `
+    ]]]
+  devices: |
+    [[[
+        var codeBlk = "";
+        if (states['person.person_name'].state != 'home') 
+          codeBlk = codeBlk + " " + `<ha-icon
+        icon="ssb:away"
+        style="width: 13px; height: 13px; color: #CF0A0A;">
+        </ha-icon>
+       `;
+        if (states['sensor.iphone_connection_type'].state != 'Wi-Fi') 
+          codeBlk = codeBlk + " " + `<ha-icon
+        icon="ssb:signal"
+        style="width: 13px; height: 13px; color: #BD4291;">
+        </ha-icon>
+       `;
+        if (states['sensor.iphone_battery_state'].state != 'Not Charging') 
+          codeBlk = codeBlk + " " + `<ha-icon
+        icon="ssb:power-socket"
+        style="width: 13px; height: 13px; color: #439A97;">
+        </ha-icon>
+       `;
+        return codeBlk;
+      
+    ]]]
+  temp: |
+    [[[
+      var icon_battery = "ssb:battery-full";
+      var battery_level = states['sensor.iphone_battery_level'].state;
+      if(battery_level < 20 ) icon_battery = "ssb:battery-0"; 
+      else if(battery_level > 20 && battery_level < 30) icon_battery = "ssb:battery-1";
+      else if(battery_level > 30 && battery_level < 40) icon_battery = "ssb:battery-2";
+      else if(battery_level > 40 && battery_level < 50) icon_battery = "ssb:battery-3";
+      else if(battery_level > 50 && battery_level < 60) icon_battery = "ssb:battery-4";
+      else if(battery_level > 60 && battery_level < 70) icon_battery = "ssb:battery-5";
+      else if(battery_level > 70 && battery_level < 80) icon_battery = "ssb:battery-6";
+      else if(battery_level > 90) icon_battery = "ssb:battery-full";
+      return `<span style="font-size:60%; font-weight: normal;"><ha-icon
+        icon=${icon_battery}
+        style="width: 12px; height: 12x; color: #59CE8F;">
+        </ha-icon> 
+        ${battery_level}%</span>
+        <span style="font-size:60%; font-weight: normal; text-align: center;"><ha-icon
+        icon="ssb:storage"
+        style="width: 12px; height: 12px; color: #3AB0FF;">
+        </ha-icon>
+        ${states['sensor.iphone_storage'].state}%</span>`
+
+    ]]]

@@ -1,305 +1,108 @@
-square: false
-columns: 2
-type: grid
-cards:
-  - type: custom:button-card
-    entity: light.living_room_light
-    show_icon: false
-    name: Living Room
-    styles:
-      card: null
-      custom_fields:
-        icon_cells:
-          - justify-self: start
-          - margin-top: 5%
-          - margin-left: 15px
-        devices:
-          - justify-self: end
-          - margin-right: 8px
-          - margin-top: '-17px'
-        temp:
-          - filter: opacity(80%)
-          - justify-self: start
-          - margin-left: 10px
-          - margin-top: '-2px'
-          - padding-bottom: 10%
-        graph:
-          - padding-top: 0%
-          - width: 100%
-          - height: 0%
-          - margin-bottom: '-1%'
-      icon:
-        - width: 25px
-        - color: auto
-      name:
-        - font-size: 90%
-        - font-weight: bold
-        - justify-self: start
-        - margin-top: 6px
-        - margin-left: 12px
-      grid:
-        - grid-template-areas: '"icon_cells devices" "n n" "temp temp" "graph graph"'
-        - grid-template-columns: 1fr min-content
-        - grid-template-rows: 1fr min-content min-content min-content
-    custom_fields:
-      icon_cells: |
-        [[[
-          return `<ha-icon
-            icon="mdi:sofa"
-            style="width: 25px; height: 25px; color: auto;">
-           </ha-icon> 
-           `
-        ]]]
-      devices: |
-        [[[
-            var codeBlk = "";
-            if (states['binary_sensor.hall_motion_detection'].state == 'on') 
-              codeBlk = `<ha-icon
-            icon="mdi:motion-sensor"
-            style="width: 13px; height: 13px; color: #DC0000;">
-           </ha-icon>`;
-            if (states['light.living_room_light'].state == 'on') 
-              codeBlk = codeBlk + " " + `<ha-icon
-            icon="mdi:lightbulb"
-            style="width: 13px; height: 13px; color: #FED049;">
-            </ha-icon>
-           `;
-            return codeBlk;
-          
-        ]]]
-      temp: |
-        [[[
-          return `<ha-icon
-            icon="mdi:thermometer"
-            style="width: 11px; height: 11px; color: #DC0000;">
-            </ha-icon><span style="font-size:60%; font-weight: normal;"> 
-            ${states['sensor.living_room_temperature'].state}°C</span>
-            <ha-icon
-            icon="mdi:water-percent"
-            style="width: 11px; height: 11px; color: #1F8A70;">
-            </ha-icon><span style="font-size:60%; font-weight: normal; text-align: center;">
-            ${states['sensor.living_room_humidity'].state}%</span>`
+type: custom:button-card
+entity: light.living_room_light
+show_icon: false
+name: Living Room
+styles:
+  card:
+    - border-radius: 20px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
+  custom_fields:
+    icon_cells:
+      - justify-self: start
+      - margin-top: 12px
+      - margin-left: 15px
+    devices:
+      - justify-self: end
+      - margin-right: 10px
+      - margin-top: '-17px'
+    temp:
+      - filter: opacity(80%)
+      - justify-self: start
+      - margin-left: 10px
+      - margin-top: '-2px'
+      - padding-bottom: 10%
+    graph:
+      - padding-top: 0%
+      - width: 100%
+      - height: 0%
+      - margin-bottom: '-1%'
+  icon:
+    - width: 25px
+    - color: auto
+  name:
+    - font-size: 90%
+    - font-weight: bold
+    - justify-self: start
+    - margin-top: 6px
+    - margin-left: 12px
+  grid:
+    - grid-template-areas: '"icon_cells devices" "n n" "temp temp" "graph graph"'
+    - grid-template-columns: 1fr min-content
+    - grid-template-rows: 1fr min-content min-content min-content
+custom_fields:
+  icon_cells: |
+    [[[
+      return `<ha-icon
+        icon="ssb:living-room"
+        style="width: 25px; height: 25px; color: auto;">
+       </ha-icon> 
+       `
+    ]]]
+  devices: |
+    [[[
+        var codeBlk = "";
+        if (states['binary_sensor.hall_motion_detection'].state == 'on') 
+          codeBlk = `<ha-icon
+        icon="ssb:motion"
+        style="width: 13px; height: 13px; color: #DC0000;">
+       </ha-icon>`;
+        if (states['light.living_room_light'].state == 'on') 
+          codeBlk = codeBlk + " " + `<ha-icon
+        icon="ssb:light-bulb"
+        style="width: 13px; height: 13px; color: #FED049;">
+        </ha-icon>
+       `;
+        if (states['media_player.living_room_speaker'].state != 'off') 
+          codeBlk = codeBlk + " " + `<ha-icon
+        icon="ssb:google-mini"
+        style="width: 13px; height: 13px; color: #541690;">
+        </ha-icon>
+       `;
+        return codeBlk;
+      
+    ]]]
+  temp: |
+    [[[
+      return `<ha-icon
+        icon="ssb:thermostat"
+        style="width: 11px; height: 11px; color: #DC0000;">
+        </ha-icon><span style="font-size:60%; font-weight: normal;"> 
+        ${states['sensor.living_room_temperature'].state}°C</span>
+        <ha-icon
+        icon="ssb:humidity"
+        style="width: 11px; height: 11px; color: #1F8A70;">
+        </ha-icon><span style="font-size:60%; font-weight: normal; text-align: center;">
+        ${states['sensor.living_room_humidity'].state}%</span>`
 
-        ]]]
-      graph:
-        card:
-          type: custom:mini-graph-card
-          entities:
-            - entity: sensor.living_room_temperature
-              color: '#DC0000'
-          line_width: 0
-          show:
-            icon: false
-            name: false
-            legend: false
-            state: false
-          card_mod:
-            style: |
-              ha-card {
-              background: none;
-              border-style: none;
-              margin-top: -40px;
-              }
+    ]]]
+  graph:
+    card:
+      type: custom:mini-graph-card
+      entities:
+        - entity: sensor.living_room_temperature
+          color: '#DC0000'
+      line_width: 0
+      show:
+        icon: false
+        name: false
+        legend: false
+        state: false
+      card_mod:
+        style: |
+          ha-card {
+          background: none;
+          border-style: none;
+          margin-top: -40px;
+          }
 
-  - type: custom:button-card
-    entity: null
-    show_icon: false
-    name: Kitchen
-    styles:
-      card: null
-      custom_fields:
-        icon_cells:
-          - justify-self: start
-          - margin-top: 5%
-          - margin-left: 15px
-        devices:
-          - justify-self: end
-          - margin-right: 8px
-          - margin-top: '-17px'
-        temp:
-          - filter: opacity(80%)
-          - justify-self: start
-          - margin-left: 10px
-          - margin-top: '-2px'
-          - padding-bottom: 10%
-        graph:
-          - padding-top: 0%
-          - width: 100%
-          - height: 0%
-          - margin-bottom: '-1%'
-      icon:
-        - width: 25px
-        - color: auto
-      name:
-        - font-size: 90%
-        - font-weight: bold
-        - justify-self: start
-        - margin-top: 6px
-        - margin-left: 12px
-      grid:
-        - grid-template-areas: '"icon_cells devices" "n n" "temp temp" "graph graph"'
-        - grid-template-columns: 1fr min-content
-        - grid-template-rows: 1fr min-content min-content min-content
-    custom_fields:
-      icon_cells: |
-        [[[
-          return `<ha-icon
-            icon="mdi:knife"
-            style="width: 25px; height: 25px; color: auto;">
-           </ha-icon> 
-           `
-        ]]]
-      devices: |
-        [[[
-            var codeBlk = "";
-            if (states['binary_sensor.kitchen_motion_detection'].state == 'on') 
-              codeBlk = `<ha-icon
-            icon="mdi:motion-sensor"
-            style="width: 13px; height: 13px; color: #DC0000;">
-           </ha-icon>`;
-            if (states['light.living_room_light'].state == 'tmp') 
-              codeBlk = codeBlk + " " + `<ha-icon
-            icon="mdi:lightbulb"
-            style="width: 13px; height: 13px; color: #FED049;">
-            </ha-icon>
-           `;
-            return codeBlk;
-          
-        ]]]
-      temp: |
-        [[[
-          return `<ha-icon
-            icon="mdi:thermometer"
-            style="width: 11px; height: 11px; color: #DC0000;">
-            </ha-icon><span style="font-size:60%; font-weight: normal;"> 
-            ${states['sensor.kitchen_temperature'].state}°C</span>
-            <ha-icon
-            icon="mdi:water-percent"
-            style="width: 11px; height: 11px; color: #1F8A70;">
-            </ha-icon><span style="font-size:60%; font-weight: normal; text-align: center;">
-            ${states['sensor.kitchen_humidity'].state}%</span>
-            <ha-icon
-            icon="mdi:air-filter"
-            style="width: 11px; height: 11px; color: #FF5F9E;">
-            </ha-icon><span style="font-size:60%; font-weight: normal; text-align: center;">
-            ${states['sensor.corrected_ppm_co2'].state}PPM</span>`
-
-        ]]]
-      graph:
-        card:
-          type: custom:mini-graph-card
-          entities:
-            - entity: sensor.kitchen_temperature
-              color: '#DC0000'
-          line_width: 0
-          show:
-            icon: false
-            name: false
-            legend: false
-            state: false
-          card_mod:
-            style: |
-              ha-card {
-              background: none;
-              border-style: none;
-              margin-top: -40px;
-              }
-
-  - type: custom:button-card
-    entity: null
-    show_icon: false
-    name: Power Utilization
-    styles:
-      card: null
-      custom_fields:
-        icon_cells:
-          - justify-self: start
-          - margin-top: 5%
-          - margin-left: 15px
-        devices:
-          - justify-self: end
-          - margin-right: 8px
-          - margin-top: '-17px'
-        temp:
-          - filter: opacity(80%)
-          - justify-self: start
-          - margin-left: 10px
-          - margin-top: '-2px'
-          - padding-bottom: 10%
-        graph:
-          - padding-top: 0%
-          - width: 100%
-          - height: 0%
-          - margin-bottom: '-1%'
-      icon:
-        - width: 25px
-        - color: auto
-      name:
-        - font-size: 90%
-        - font-weight: bold
-        - justify-self: start
-        - margin-top: 6px
-        - margin-left: 12px
-      grid:
-        - grid-template-areas: '"icon_cells devices" "n n" "temp temp" "graph graph"'
-        - grid-template-columns: 1fr min-content
-        - grid-template-rows: 1fr min-content min-content min-content
-    custom_fields:
-      icon_cells: |
-        [[[
-          return `<ha-icon
-            icon="mdi:transmission-tower"
-            style="width: 25px; height: 25px; color: auto;">
-           </ha-icon> 
-           `
-        ]]]
-      devices: |
-        [[[
-            var codeBlk = "";
-            if (states['switch.geyser'].state == 'on') 
-              codeBlk = `<ha-icon
-            icon="mdi:water-boiler"
-            style="width: 13px; height: 13px; color: #DC0000;">
-           </ha-icon>`;
-            if (states['switch.server_power'].state == 'on') 
-              codeBlk = codeBlk + " " + `<ha-icon
-            icon="mdi:server"
-            style="width: 13px; height: 13px; color: #FED049;">
-            </ha-icon>
-           `;
-            return codeBlk;
-          
-        ]]]
-      temp: |
-        [[[
-          return `<ha-icon
-            icon="mdi:flash"
-            style="width: 11px; height: 11px; color: #DC0000;">
-            </ha-icon><span style="font-size:60%; font-weight: normal;"> 
-            ${states['sensor.total_power'].state}kW</span>
-            <ha-icon
-            icon="mdi:current-ac"
-            style="width: 11px; height: 11px; color: #1F8A70;">
-            </ha-icon><span style="font-size:60%; font-weight: normal; text-align: center;">
-            ${states['sensor.total_current'].state}A</span>`
-
-        ]]]
-      graph:
-        card:
-          type: custom:mini-graph-card
-          entities:
-            - entity: sensor.total_power
-              color: '#DC0000'
-          line_width: 0
-          show:
-            icon: false
-            name: false
-            legend: false
-            state: false
-          card_mod:
-            style: |
-              ha-card {
-              background: none;
-              border-style: none;
-              margin-top: -40px;
-              }
