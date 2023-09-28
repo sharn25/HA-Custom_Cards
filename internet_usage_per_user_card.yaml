@@ -1,0 +1,74 @@
+type: markdown
+content: |-
+  {% set clients = state_attr('sensor.client_usage','usage_data')%}
+  <table>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Uploaded(5s)</th>
+              <th>Downloaded(5s)</th>
+              <th>Total Utilization</th>
+          </tr>
+      </thead>
+      <tbody>{% for i in range(0, clients | count ) %}
+          <tr class="active-row">
+              <td>{{ clients[i]['client_ip'] }}</td>
+              <td>{{ clients[i]['txps'] }}</td>
+              <td>{{ clients[i]['rxps'] }}</td>
+              <td>{{ clients[i]['gbm'] }}</td>
+          </tr>{% endfor %}
+      </tbody>
+  </table>
+card_mod:
+  style:
+    .: |
+      ha-card {
+        border-style: none;
+        background-color: auto;  
+        box-shadow: 0px 0px 10px -9px black;
+        
+      }
+      ha-markdown {
+              padding: 0 0 0px 0 !important;
+              border-radius: 10px;
+      }
+    ha-markdown $: |
+      table {
+          border-collapse: separate;
+          border-spacing: 0;
+          border-radius: 10px;
+          margin: 25px 0;
+          font-size: 0.9em;
+          min-width: 100%;
+      }
+      table thead tr {
+          background-color: #2b79d6;
+          color: #ffffff;
+          text-align: left;
+          
+      }
+      table th:first-child {
+        padding: 8px;
+        border-radius: 10px 0px 0px 0px;
+      }
+      table th:last-child {
+        padding: 8px;
+        border-radius: 0px 10px 0px 0px;
+      }
+      table td {
+        padding: 12px 15px;
+      }
+      table tbody tr {
+        border-bottom: 0px solid #dddddd;
+      }
+      table tbody tr:nth-of-type(even) {
+        background-color: var(--primary-background-color);
+        color: auto
+      }
+      table tbody tr:last-of-type {
+          border-bottom: 2px solid #4e8cd6;
+      }
+      table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+      }

@@ -1,0 +1,126 @@
+square: false
+columns: 1
+type: grid
+cards:
+  - square: false
+    columns: 2
+    type: grid
+    cards:
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:button-card
+            entity: sensor.internet_rx_per_sec
+            show_icon: false
+            name: Download
+            styles:
+              card:
+                - height: 71px
+                - border-radius: 20px
+                - border-style: none
+              grid:
+                - grid-template-areas: '"icon_cells n" "value value"'
+                - grid-template-columns: min-content 1fr
+                - grid-template-rows: min-content min-content
+              name:
+                - align-self: start
+                - font-weight: bold
+                - font-size: 90%
+                - margin-left: 10px
+                - margin-top: 10px
+                - justify-self: start
+              custom_fields:
+                icon_cells:
+                  - align-self: start
+                  - margin-left: 10px
+                  - margin-top: 8px
+                  - color: '#5a3c83'
+                value:
+                  - align-self: start
+                  - justify-self: start
+                  - font-weight: normal
+                  - font-size: 11px
+                  - margin-left: 40.5px
+                  - margin-top: 6px
+                  - filter: opacity(70%)
+            custom_fields:
+              icon_cells: |
+                [[[
+                  return `<ha-icon
+                    icon="ssb:download"
+                    style="width: 20px; height: 20px; color: auto;">
+                   </ha-icon> 
+                   `
+                ]]]
+              value: |
+                [[[
+                  return `<span"> 
+                    ${states['sensor.internet_rx_per_sec'].state}</span>
+                    `
+
+                ]]]
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: 15px;
+              border-style: none;
+              box-shadow: 0px 0px 10px -9px black;
+            }
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:button-card
+            entity: sensor.internet_tx_per_sec
+            show_icon: false
+            name: Upload
+            styles:
+              card:
+                - height: 71px
+                - border-radius: 20px
+                - border-style: none
+              grid:
+                - grid-template-areas: '"icon_cells n" "value value"'
+                - grid-template-columns: min-content 1fr
+                - grid-template-rows: min-content min-content
+              name:
+                - align-self: start
+                - font-weight: bold
+                - font-size: 90%
+                - margin-left: 10px
+                - margin-top: 10px
+                - justify-self: start
+              custom_fields:
+                icon_cells:
+                  - align-self: start
+                  - margin-left: 10px
+                  - margin-top: 8px
+                  - color: '#42a69d'
+                value:
+                  - align-self: start
+                  - justify-self: start
+                  - font-weight: normal
+                  - font-size: 11px
+                  - margin-left: 40.5px
+                  - margin-top: 6px
+                  - filter: opacity(70%)
+            custom_fields:
+              icon_cells: |
+                [[[
+                  return `<ha-icon
+                    icon="ssb:upload"
+                    style="width: 20px; height: 20px; color: auto;">
+                   </ha-icon> 
+                   `
+                ]]]
+              value: |
+                [[[
+                  return `<span"> 
+                    ${states['sensor.internet_tx_per_sec'].state}</span>
+                    `
+
+                ]]]
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: 15px;
+              border-style: none;
+              box-shadow: 0px 0px 10px -9px black;
+            }

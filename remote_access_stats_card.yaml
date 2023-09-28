@@ -1,0 +1,211 @@
+type: custom:button-card
+entity: sensor.public_ip_address
+show_name: false
+show_icon: false
+styles:
+  card:
+    - border-radius: 15px
+    - border-style: none
+    - box-shadow: 0px 0px 10px -9px black
+  grid:
+    - grid-template-areas: '"title_card title_card" "info1 info1" "info2 info2" "info3 info3"'
+    - grid-template-columns: min-content 1fr
+    - grid-template-rows: min-content min-content
+  custom_fields:
+    title_card:
+      - margin-top: '-10px'
+custom_fields:
+  title_card:
+    card:
+      type: custom:button-card
+      styles:
+        card:
+          - border-style: none
+        grid:
+          - grid-template-areas: '"icon_cells title_name" "icon_cells subtitle_name"'
+          - grid-template-columns: min-content min-content
+          - grid-template-rows: min-content min-content
+        custom_fields:
+          title_name:
+            - color: auto
+            - align-self: start
+            - font-weight: bold
+            - font-size: 90%
+            - margin-left: 10px
+            - margin-top: '-5px'
+            - justify-self: start
+          subtitle_name:
+            - color: auto
+            - align-self: start
+            - font-weight: nomral
+            - font-size: 70%
+            - margin-left: 10px
+            - margin-top: '-4px'
+            - filter: opacity(40%)
+            - justify-self: start
+          icon_cells:
+            - color: green
+            - align-self: start
+            - margin-left: 10px
+            - margin-top: '-10px'
+            - justify-self: start
+      custom_fields:
+        icon_cells: |
+          [[[
+            return `<ha-icon
+              icon="ssb:public"
+              style="width: 45px; height: 45px; color: auto;">
+             </ha-icon> 
+             `
+          ]]]
+        title_name: |
+          [[[
+            return `<span>Remote Access Stats</span>
+           `
+          ]]]
+        subtitle_name: |
+          [[[
+            return `<span>HomeLab Servers</span>
+           `
+          ]]]
+  info1:
+    card:
+      type: custom:button-card
+      styles:
+        card:
+          - border-style: none
+          - padding: 10px 0px 0px 20px
+        grid:
+          - grid-template-areas: '"title_name subtitle_name"'
+          - grid-template-columns: 1fr min-content
+          - grid-template-rows: min-content
+        custom_fields:
+          title_name:
+            - color: auto
+            - align-self: start
+            - font-weight: normal
+            - font-size: 80%
+            - filter: opacity(40%)
+            - margin-left: 10px
+            - margin-top: '-2px'
+            - justify-self: start
+          subtitle_name:
+            - color: auto
+            - align-self: start
+            - font-weight: normal
+            - font-size: 70%
+            - margin-right: 25px
+            - margin-top: 0px
+            - filter: opacity(100%)
+            - justify-self: end
+      custom_fields:
+        title_name: |
+          [[[
+            return `<span>Current IP</span>
+           `
+          ]]]
+        subtitle_name: |
+          [[[
+            return `<span>${states['sensor.public_ip_address'].state}</span>
+           `
+          ]]]        
+  info2:
+    card:
+      type: custom:button-card
+      styles:
+        card:
+          - border-style: none
+          - padding: 10px 0px 0px 20px
+        grid:
+          - grid-template-areas: '"title_name subtitle_name"'
+          - grid-template-columns: 1fr min-content
+          - grid-template-rows: min-content
+        custom_fields:
+          title_name:
+            - color: auto
+            - align-self: start
+            - font-weight: normal
+            - font-size: 80%
+            - filter: opacity(40%)
+            - margin-left: 10px
+            - margin-top: '-2px'
+            - justify-self: start
+          subtitle_name:
+            - color: auto
+            - align-self: start
+            - font-weight: normal
+            - font-size: 70%
+            - margin-right: 25px
+            - margin-top: 0px
+            - filter: opacity(100%)
+            - justify-self: end
+      custom_fields:
+        title_name: |
+          [[[
+            return `<span>Home Assistant Tunnel</span>
+           `
+          ]]]
+        subtitle_name: |
+          [[[
+            if(states['sensor.tunnel_status'].state != 'unknown'){
+            var tunnel_states = states['sensor.tunnel_status'].attributes.http_codes.ha_tunnel_code
+            if(tunnel_states == 200){
+            return `<span style="color:green">Up</span>
+           `;}else{
+           return `<span style="color:red">Down</span>
+           `;
+           }}else{
+           return `<span style="color:red">Down</span>
+           `;
+           }
+          ]]]        
+  info3:
+    card:
+      type: custom:button-card
+      styles:
+        card:
+          - border-style: none
+          - padding: 10px 0px 0px 20px
+        grid:
+          - grid-template-areas: '"title_name subtitle_name"'
+          - grid-template-columns: 1fr min-content
+          - grid-template-rows: min-content
+        custom_fields:
+          title_name:
+            - color: auto
+            - align-self: start
+            - font-weight: normal
+            - font-size: 80%
+            - filter: opacity(40%)
+            - margin-left: 10px
+            - margin-top: '-2px'
+            - justify-self: start
+          subtitle_name:
+            - color: auto
+            - align-self: start
+            - font-weight: normal
+            - font-size: 70%
+            - margin-right: 25px
+            - margin-top: 0px
+            - filter: opacity(100%)
+            - justify-self: end
+      custom_fields:
+        title_name: |
+          [[[
+            return `<span>Vault Tunnel</span>
+           `
+          ]]]
+        subtitle_name: |
+          [[[
+             if(states['sensor.tunnel_status'].state != 'unknown'){
+            var tunnel_states = states['sensor.tunnel_status'].attributes.http_codes.vault_tunnel_code
+            if(tunnel_states == 200){
+            return `<span style="color:green">Up</span>
+           `;}else{
+           return `<span style="color:red">Down</span>
+           `;
+           }}else{
+           return `<span style="color:red">Down</span>
+           `;
+           }
+          ]]]    
