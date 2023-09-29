@@ -20,7 +20,14 @@ This Repository gives sample code to make custom cards for HomeAssistant. You wi
 * Some from Flaticons.
 
 #### Install
+* Copy the custom_icon.js files to your configuration/www/ folder.
+* Under Home Assistant go to setting Dashboards > click three dots on top-right and click on Resources.
+* Click Add resource.
+* Under url enter: /local/js_file_name.js
+* Select JavaScript module and create.
+* Then restart Home Assistant
 
+Or to do this manually using YAML, dd following code to lovelace section
 ```yaml
   resources:
     - url: /local/custom_icon.js
